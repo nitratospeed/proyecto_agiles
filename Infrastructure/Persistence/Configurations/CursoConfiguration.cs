@@ -22,6 +22,38 @@ namespace Infrastructure.Persistence.Configurations
                 .Property(x => x.Nombre)
                 .IsRequired()
                 .HasMaxLength(50);
+
+            builder
+                .Property(x => x.Descripcion)
+                .IsRequired()
+                .HasMaxLength(500);
+
+            builder
+                .Property(x => x.Categoria)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            builder
+                .Property(x => x.SubCategoria)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            builder
+                .Property(x => x.TipoAsistencia)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            builder
+                .Property(x => x.Precio)
+                .IsRequired();
+
+            builder
+                .Property(x => x.BrindaCertificado)
+                .IsRequired();
+
+            builder
+                .Property(x => x.CostoCertificado)
+                .IsRequired();
         }
     }
 }

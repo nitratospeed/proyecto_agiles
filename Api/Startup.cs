@@ -166,7 +166,7 @@ namespace Api
             {
                 var info = new OpenApiInfo()
                 {
-                    Title = "My API",
+                    Title = "Cursos Baratos API",
                     Version = description.ApiVersion.ToString(),
                 };
 
