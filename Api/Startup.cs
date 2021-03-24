@@ -42,7 +42,7 @@ namespace Api
 
             services.AddControllers(options =>
             {
-                //options.Filters.Add<ApiExceptionFilterAttribute>();
+                options.Filters.Add<ApiExceptionFilterAttribute>();
                 options.Filters.Add<BaseApiResponseFilterAttribute>();
             })
             .AddFluentValidation();
