@@ -12,18 +12,21 @@ namespace Application.Cursos.Queries.GetCursos
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        //public string Categoria { get; set; }
-        //public string SubCategoria { get; set; }
+        public string Categoria { get; set; }
+        public string SubCategoria { get; set; } = "";
         public string TipoAsistencia { get; set; }
         public decimal Precio { get; set; }
-        //public bool BrindaCertificado { get; set; }
-        //public decimal CostoCertificado { get; set; }
+        public bool BrindaCertificado { get; set; } = true;
+        public decimal CostoCertificado { get; set; }
         public decimal Calificacion { get; set; }
         public string UrlImagen { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Curso, CursoDto>();
+            profile.CreateMap<Curso, CursoDto>()
+                .ForMember(dest => dest.Categoria, opt => opt.MapFrom(src => src.Categoria.Nombre))
+                .ForMember(dest => dest.CostoCertificado, opt => opt.MapFrom(src => src.Certificado.Costo))
+                .ForMember(dest => dest.CostoCertificado, opt => opt.MapFrom(src => src.Certificado.Costo));
         }
     }
 }
