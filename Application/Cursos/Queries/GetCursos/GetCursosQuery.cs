@@ -6,6 +6,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace Application.Cursos.Queries.GetCursos
     {
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
+        public string Nombre { get; set; } = "";
     }
 
     public class GetCursoQueryHandler : IRequestHandler<GetCursoQuery, PaginatedList<CursoDto>>
@@ -32,6 +34,7 @@ namespace Application.Cursos.Queries.GetCursos
         public async Task<PaginatedList<CursoDto>> Handle(GetCursoQuery request, CancellationToken cancellationToken)
         {
             var result = await _context.Cursos
+                .Where(x=>x.Nombre.ToLower().Contains(request.Nombre.ToLower()) || request.Nombre == "")
                 .ProjectTo<CursoDto>(_mapper.ConfigurationProvider)
                 .PaginatedListAsync(request.PageNumber, request.PageSize);
 

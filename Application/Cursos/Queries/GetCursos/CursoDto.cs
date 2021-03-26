@@ -10,6 +10,7 @@ namespace Application.Cursos.Queries.GetCursos
     public class CursoDto : IMapFrom<Curso>
     {
         public int Id { get; set; }
+        public int CategoriaId { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public string Categoria { get; set; }
@@ -25,6 +26,7 @@ namespace Application.Cursos.Queries.GetCursos
         {
             profile.CreateMap<Curso, CursoDto>()
                 .ForMember(dest => dest.Categoria, opt => opt.MapFrom(src => src.Categoria.Nombre))
+                .ForMember(dest => dest.CategoriaId, opt => opt.MapFrom(src => src.Categoria.Id))
                 .ForMember(dest => dest.CostoCertificado, opt => opt.MapFrom(src => src.Certificado.Costo))
                 .ForMember(dest => dest.CostoCertificado, opt => opt.MapFrom(src => src.Certificado.Costo));
         }
