@@ -9,11 +9,17 @@ namespace Domain.Entities
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public string Categoria { get; set; }
-        public string SubCategoria { get; set; }
         public string TipoAsistencia { get; set; }
         public decimal Precio { get; set; }
-        public bool BrindaCertificado { get; set; }
-        public decimal CostoCertificado { get; set; }
+        public decimal Calificacion { get; set; }
+        public string UrlImagen { get; set; }
+
+        public int DocenteId { get; set; }
+        public Docente Docente { get; set; }
+
+        public int CategoriaId { get; set; }
+        public Categoria Categoria { get; set; }
+
+        public Certificado Certificado { get; set; }
     }
 }

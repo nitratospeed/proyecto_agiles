@@ -29,16 +29,6 @@ namespace Infrastructure.Persistence.Configurations
                 .HasMaxLength(500);
 
             builder
-                .Property(x => x.Categoria)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            builder
-                .Property(x => x.SubCategoria)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            builder
                 .Property(x => x.TipoAsistencia)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -48,12 +38,28 @@ namespace Infrastructure.Persistence.Configurations
                 .IsRequired();
 
             builder
-                .Property(x => x.BrindaCertificado)
+                .Property(x => x.Calificacion)
                 .IsRequired();
 
             builder
-                .Property(x => x.CostoCertificado)
-                .IsRequired();
+                .Property(x => x.UrlImagen)
+                .IsRequired()
+                .HasMaxLength(500);
+
+            builder
+                .HasOne(x => x.Docente)
+                .WithMany(x => x.Cursos)
+                .HasForeignKey(x => x.DocenteId);
+
+            builder
+                .HasOne(x => x.Categoria)
+                .WithMany(x => x.Cursos)
+                .HasForeignKey(x => x.CategoriaId);
+
+            builder
+                .HasOne(b => b.Certificado)
+                .WithOne(i => i.Curso)
+                .HasForeignKey<Certificado>(b => b.CursoId);
         }
     }
 }

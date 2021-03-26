@@ -15,4 +15,12 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Categorias\Commands\" />
+    <Folder Include="Certificados\Commands\" />
+    <Folder Include="Certificados\Queries\" />
+    <Folder Include="Docentes\Commands\" />
+    <Folder Include="Docentes\Queries\" />
+  </ItemGroup>
+
 </Project>

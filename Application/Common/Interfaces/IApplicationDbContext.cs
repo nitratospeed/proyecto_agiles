@@ -11,6 +11,9 @@ namespace Application.Common.Interfaces
     public interface IApplicationDbContext
     {
         DbSet<Curso> Cursos { get; set; }
+        DbSet<Categoria> Categorias { get; set; }
+        DbSet<Certificado> Certificados { get; set; }
+        DbSet<Docente> Docentes { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
