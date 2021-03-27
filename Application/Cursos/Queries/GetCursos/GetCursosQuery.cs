@@ -18,6 +18,7 @@ namespace Application.Cursos.Queries.GetCursos
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
         public string Nombre { get; set; } = "";
+        public int CategoriaId { get; set; } = 0;
     }
 
     public class GetCursoQueryHandler : IRequestHandler<GetCursoQuery, PaginatedList<CursoDto>>
@@ -35,6 +36,7 @@ namespace Application.Cursos.Queries.GetCursos
         {
             var result = await _context.Cursos
                 .Where(x=>x.Nombre.ToLower().Contains(request.Nombre.ToLower()) || request.Nombre == "")
+                .Where(x => x.CategoriaId == request.CategoriaId || request.CategoriaId == 0)
                 .ProjectTo<CursoDto>(_mapper.ConfigurationProvider)
                 .PaginatedListAsync(request.PageNumber, request.PageSize);
 

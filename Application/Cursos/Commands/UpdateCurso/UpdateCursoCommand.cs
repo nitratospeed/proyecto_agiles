@@ -13,6 +13,13 @@ namespace Application.Cursos.Commands.UpdateCurso
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public string TipoAsistencia { get; set; }
+        public decimal Precio { get; set; }
+        public decimal Calificacion { get; set; }
+        public string UrlImagen { get; set; }
+        public int DocenteId { get; set; }
+        public int CategoriaId { get; set; }
     }
 
     public class UpdateCursoCommandHandler : IRequestHandler<UpdateCursoCommand, int>
@@ -35,6 +42,13 @@ namespace Application.Cursos.Commands.UpdateCurso
 
             entity.Id = request.Id;
             entity.Nombre = request.Nombre;
+            entity.Descripcion = request.Descripcion;
+            entity.TipoAsistencia = request.TipoAsistencia;
+            entity.Precio = request.Precio;
+            entity.Calificacion = request.Calificacion;
+            entity.UrlImagen = request.UrlImagen;
+            entity.DocenteId = request.DocenteId;
+            entity.CategoriaId = request.CategoriaId;
 
             await _context.SaveChangesAsync(cancellationToken);
 

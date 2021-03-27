@@ -12,6 +12,13 @@ namespace Application.Cursos.Commands.CreateCurso
     public class CreateCursoCommand : IRequest<int>
     {
         public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public string TipoAsistencia { get; set; }
+        public decimal Precio { get; set; }
+        public decimal Calificacion { get; set; }
+        public string UrlImagen { get; set; }
+        public int DocenteId { get; set; }
+        public int CategoriaId { get; set; }
     }
 
     public class CreateCursoCommandHandler : IRequestHandler<CreateCursoCommand, int>
@@ -27,7 +34,14 @@ namespace Application.Cursos.Commands.CreateCurso
         {
             var entity = new Curso
             {
-                Nombre = request.Nombre
+                Nombre = request.Nombre,
+                Descripcion = request.Descripcion,
+                TipoAsistencia = request.TipoAsistencia,
+                Precio = request.Precio,
+                Calificacion = request.Calificacion,
+                UrlImagen = request.UrlImagen,
+                DocenteId = request.DocenteId,
+                CategoriaId = request.CategoriaId
             };
 
             _context.Cursos.Add(entity);
