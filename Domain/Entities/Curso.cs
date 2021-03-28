@@ -20,6 +20,8 @@ namespace Domain.Entities
         public int CategoriaId { get; set; }
         public Categoria Categoria { get; set; }
 
+        public List<CursoContenido> CursoContenidos { get; set; }
+
         public Certificado Certificado { get; set; }
     }
 }

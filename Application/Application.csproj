@@ -19,6 +19,7 @@
     <Folder Include="Categorias\Commands\" />
     <Folder Include="Certificados\Commands\" />
     <Folder Include="Certificados\Queries\" />
+    <Folder Include="CursoContenidos\Commands\" />
     <Folder Include="Docentes\Commands\" />
     <Folder Include="Docentes\Queries\" />
   </ItemGroup>
