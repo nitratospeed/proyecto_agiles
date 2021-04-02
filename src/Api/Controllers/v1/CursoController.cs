@@ -1,4 +1,5 @@
-﻿using Application.Cursos.Commands.CreateCurso;
+﻿using Application.Common.Models;
+using Application.Cursos.Commands.CreateCurso;
 using Application.Cursos.Commands.DeleteCurso;
 using Application.Cursos.Commands.UpdateCurso;
 using Application.Cursos.Queries.GetCursos;
@@ -15,25 +16,25 @@ namespace Api.Controllers.v1
     public class CursoController : ApiControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] GetCursoQuery query)
+        public async Task<ActionResult<PaginatedList<CursoDto>>> Get([FromQuery] GetCursoQuery query)
         {
             return Ok(await Mediator.Send(query));
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<CursoDto>> GetById(int id)
         {
             return Ok(await Mediator.Send(new GetCursoByIdQuery { Id = id }));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCursoCommand command)
+        public async Task<ActionResult<int>> Create(CreateCursoCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, UpdateCursoCommand command)
+        public async Task<ActionResult<int>> Update(int id, UpdateCursoCommand command)
         {
             if (id != command.Id)
             {
@@ -44,7 +45,7 @@ namespace Api.Controllers.v1
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult<int>> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteCursoCommand { Id = id }));
         }

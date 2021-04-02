@@ -14,9 +14,9 @@ namespace Api.Controllers.v1
     public class SumarizadoController : ApiControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] GetSumarizadosQuery query)
+        public async Task<IActionResult> Get()
         {
-            return Ok(await Mediator.Send(query));
+            return Ok(await Mediator.Send(new GetSumarizadosQuery()));
         }
     }
 }
