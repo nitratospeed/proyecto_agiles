@@ -16,6 +16,8 @@ namespace Infrastructure.Persistence
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Certificado> Certificados { get; set; }
         public DbSet<Docente> Docentes { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<CursoUsuario> CursoUsuarios { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions options) : base(options)

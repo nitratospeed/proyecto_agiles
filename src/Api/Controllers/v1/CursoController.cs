@@ -1,5 +1,6 @@
 ﻿using Application.Common.Models;
 using Application.Cursos.Commands.CreateCurso;
+using Application.Cursos.Commands.CreateCursoUsuario;
 using Application.Cursos.Commands.DeleteCurso;
 using Application.Cursos.Commands.UpdateCurso;
 using Application.Cursos.Queries.GetCursos;
@@ -27,8 +28,20 @@ namespace Api.Controllers.v1
             return Ok(await Mediator.Send(new GetCursoByIdQuery { Id = id }));
         }
 
+        [HttpGet("usuario")]
+        public async Task<ActionResult<BaseApiResponse<List<CursoDto>>>> GetByUsuarioId(int usuarioId)
+        {
+            return Ok(await Mediator.Send(new GetCursosByUsuarioIdQuery { UsuarioId = usuarioId }));
+        }
+
         [HttpPost]
         public async Task<ActionResult<BaseApiResponse<int>>> Create(CreateCursoCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        [HttpPost("usuario")]
+        public async Task<ActionResult<BaseApiResponse<bool>>> CreateByCursoIdUsuarioId(CreateCursoUsuarioCommand command)
         {
             return Ok(await Mediator.Send(command));
         }

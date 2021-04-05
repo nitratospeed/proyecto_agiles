@@ -16,6 +16,8 @@ namespace Application.Common.Interfaces
         DbSet<Categoria> Categorias { get; set; }
         DbSet<Certificado> Certificados { get; set; }
         DbSet<Docente> Docentes { get; set; }
+        DbSet<Usuario> Usuarios { get; set; }
+        DbSet<CursoUsuario> CursoUsuarios { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

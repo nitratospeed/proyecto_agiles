@@ -20,6 +20,8 @@
     <Folder Include="Certificados\Commands\" />
     <Folder Include="CursoContenidos\Commands\" />
     <Folder Include="Docentes\Commands\" />
+    <Folder Include="Usuarios\Commands\DeleteUsuario\" />
+    <Folder Include="Usuarios\Commands\UpdateUsuario\" />
   </ItemGroup>
 
 </Project>

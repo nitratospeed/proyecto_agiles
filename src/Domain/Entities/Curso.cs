@@ -23,5 +23,7 @@ namespace Domain.Entities
         public List<CursoContenido> CursoContenidos { get; set; }
 
         public Certificado Certificado { get; set; }
+
+        public List<CursoUsuario> CursoUsuarios { get; set; }
     }
 }
