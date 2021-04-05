@@ -79,7 +79,9 @@ namespace Api
                 options.SubstituteApiVersionInUrl = true;
             });
 
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c => {
+                c.CustomOperationIds(e => $"{e.ActionDescriptor.RouteValues["controller"]}{e.ActionDescriptor.RouteValues["action"]}");
+            });
 
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen(options => options.OperationFilter<SwaggerDefaultValues>());
