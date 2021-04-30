@@ -37,6 +37,9 @@ namespace Application.Cursos.Commands.CreateCurso
 
             RuleFor(x => x.CategoriaId)
                 .NotEmpty();
+
+            RuleFor(x => x.TemaId)
+               .NotEmpty();
         }
     }
 }

@@ -57,6 +57,11 @@ namespace Infrastructure.Persistence.Configurations
                 .HasForeignKey(x => x.CategoriaId);
 
             builder
+                .HasOne(x => x.Tema)
+                .WithMany(x => x.Cursos!)
+                .HasForeignKey(x => x.TemaId);
+
+            builder
                 .HasOne(b => b.Certificado)
                 .WithOne(i => i.Curso)
                 .HasForeignKey<Certificado>(b => b.CursoId);

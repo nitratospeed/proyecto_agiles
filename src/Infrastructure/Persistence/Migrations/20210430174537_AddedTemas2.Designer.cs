@@ -3,15 +3,17 @@ using System;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210430174537_AddedTemas2")]
+    partial class AddedTemas2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,7 +211,12 @@ namespace Infrastructure.Persistence.Migrations
                         .HasColumnType("character varying(250)")
                         .HasMaxLength(250);
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Temas");
                 });
@@ -244,21 +251,6 @@ namespace Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("Domain.Entities.UsuarioTema", b =>
-                {
-                    b.Property<int>("TemaId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("TemaId", "UsuarioId");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("UsuarioTemas");
                 });
 
             modelBuilder.Entity("Domain.Entities.Certificado", b =>
@@ -322,16 +314,10 @@ namespace Infrastructure.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Entities.UsuarioTema", b =>
+            modelBuilder.Entity("Domain.Entities.Tema", b =>
                 {
-                    b.HasOne("Domain.Entities.Tema", "Tema")
-                        .WithMany("UsuarioTemas")
-                        .HasForeignKey("TemaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Usuario", "Usuario")
-                        .WithMany("UsuarioTemas")
+                        .WithMany()
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

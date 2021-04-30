@@ -13,12 +13,16 @@ namespace Domain.Entities
         public decimal Precio { get; set; }
         public decimal Calificacion { get; set; }
         public string UrlImagen { get; set; }
+        public string UrlVideo { get; set; }
 
         public int DocenteId { get; set; }
         public Docente Docente { get; set; }
 
         public int CategoriaId { get; set; }
         public Categoria Categoria { get; set; }
+
+        public int? TemaId { get; set; }
+        public Tema Tema { get; set; }
 
         public List<CursoContenido> CursoContenidos { get; set; }
 

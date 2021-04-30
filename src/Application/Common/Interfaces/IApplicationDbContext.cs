@@ -18,6 +18,8 @@ namespace Application.Common.Interfaces
         DbSet<Docente> Docentes { get; set; }
         DbSet<Usuario> Usuarios { get; set; }
         DbSet<CursoUsuario> CursoUsuarios { get; set; }
+        DbSet<UsuarioTema> UsuarioTemas { get; set; }
+        DbSet<Tema> Temas { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

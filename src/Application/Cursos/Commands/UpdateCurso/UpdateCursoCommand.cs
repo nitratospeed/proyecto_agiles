@@ -20,6 +20,7 @@ namespace Application.Cursos.Commands.UpdateCurso
         public string UrlImagen { get; set; }
         public int DocenteId { get; set; }
         public int CategoriaId { get; set; }
+        public int TemaId { get; set; }
     }
 
     public class UpdateCursoCommandHandler : IRequestHandler<UpdateCursoCommand, int>
@@ -49,6 +50,7 @@ namespace Application.Cursos.Commands.UpdateCurso
             entity.UrlImagen = request.UrlImagen;
             entity.DocenteId = request.DocenteId;
             entity.CategoriaId = request.CategoriaId;
+            entity.TemaId = request.TemaId;
 
             await _context.SaveChangesAsync(cancellationToken);
 

@@ -12,5 +12,6 @@ namespace Domain.Entities
         public string Correo { get; set; }
         public string Contrasena { get; set; }
         public List<CursoUsuario> CursoUsuarios { get; set; }
+        public List<UsuarioTema> UsuarioTemas { get; set; }
     }
 }

@@ -19,6 +19,7 @@ namespace Application.Cursos.Commands.CreateCurso
         public string UrlImagen { get; set; }
         public int DocenteId { get; set; }
         public int CategoriaId { get; set; }
+        public int TemaId { get; set; }
     }
 
     public class CreateCursoCommandHandler : IRequestHandler<CreateCursoCommand, int>
@@ -41,7 +42,8 @@ namespace Application.Cursos.Commands.CreateCurso
                 Calificacion = request.Calificacion,
                 UrlImagen = request.UrlImagen,
                 DocenteId = request.DocenteId,
-                CategoriaId = request.CategoriaId
+                CategoriaId = request.CategoriaId,
+                TemaId = request.TemaId
             };
 
             _context.Cursos.Add(entity);

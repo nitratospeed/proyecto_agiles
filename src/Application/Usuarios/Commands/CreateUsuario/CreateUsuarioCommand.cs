@@ -15,6 +15,12 @@ namespace Application.Usuarios.Commands.CreateUsuario
         public string Apellidos { get; set; }
         public string Correo { get; set; }
         public string Contrasena { get; set; }
+        public List<Tema> Temas { get; set; }
+
+        public class Tema 
+        {
+            public int TemaId { get; set; }
+        }
     }
     public class CreateUsuarioCommandHandler : IRequestHandler<CreateUsuarioCommand, int>
     {
@@ -40,6 +46,22 @@ namespace Application.Usuarios.Commands.CreateUsuario
             await _context.SaveChangesAsync(cancellationToken);
 
             var result = entity.Id;
+
+            var listUsuarioTemas = new List<UsuarioTema>();
+
+            foreach (var item in request.Temas)
+            {
+                var usuarioTema = new UsuarioTema
+                {
+                    UsuarioId = result,
+                    TemaId = item.TemaId
+                };
+                listUsuarioTemas.Add(usuarioTema);                
+            }
+
+            await _context.UsuarioTemas.AddRangeAsync(listUsuarioTemas);
+
+            await _context.SaveChangesAsync(cancellationToken);
 
             return result;
         }

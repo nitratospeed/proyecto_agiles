@@ -40,6 +40,9 @@ namespace Application.Cursos.Commands.UpdateCurso
 
             RuleFor(x => x.CategoriaId)
                 .NotEmpty();
+
+            RuleFor(x => x.TemaId)
+                .NotEmpty();
         }
     }
 }

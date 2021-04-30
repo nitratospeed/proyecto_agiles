@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Persistence\Migrations\20210430174009_AddedTemas.cs" />
+    <Compile Remove="Persistence\Migrations\20210430174009_AddedTemas.Designer.cs" />
+    <Compile Remove="Persistence\Migrations\20210430174349_AddedTemas1.cs" />
+    <Compile Remove="Persistence\Migrations\20210430174349_AddedTemas1.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Persistence\Migrations\" />
     <Folder Include="Services\" />
   </ItemGroup>
