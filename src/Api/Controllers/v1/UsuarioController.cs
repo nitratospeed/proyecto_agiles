@@ -1,4 +1,5 @@
 ﻿using Application.Common.Models;
+using Application.Mail.Commands.SendEmail;
 using Application.Usuarios.Commands.CreateUsuario;
 using Application.Usuarios.Queries.GetUsuarios;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +34,12 @@ namespace Api.Controllers.v1
 
         [HttpPost("register")]
         public async Task<ActionResult<BaseApiResponse<int>>> Register(CreateUsuarioCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        [HttpPost("mail")]
+        public async Task<IActionResult> Mail(SendEmailCommand command)
         {
             return Ok(await Mediator.Send(command));
         }

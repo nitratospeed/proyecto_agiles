@@ -16,5 +16,11 @@ namespace Api.Controllers.v1
         {
             return Ok(await Mediator.Send(new GetTemasQuery()));
         }
+
+        [HttpGet("usuario/{usuarioId}")]
+        public async Task<IActionResult> GetByUsuarioId(int usuarioId)
+        {
+            return Ok(await Mediator.Send(new GetTemasByUsuarioIdQuery { UsuarioId = usuarioId }));
+        }
     }
 }
