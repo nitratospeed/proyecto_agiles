@@ -17,13 +17,16 @@ namespace Infrastructure.Services.Mail
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse("u201817688@upc.edu.pe"));
             email.To.Add(MailboxAddress.Parse(Correo));
-            email.Subject = "Bienvenido al curso de " + Curso; //<a href="http://">Accede al curso aquí</a>
-            email.Body = new TextPart(TextFormat.Html) { Text = "<h1>"+Curso+"</h1>" + "<a href='" + LinkCurso + "'>"+Curso+"</a>" };
+            email.Subject = "Bienvenido al curso de " + Curso;
+            email.Body = new TextPart(TextFormat.Html) { Text = 
+                "<h1>Te damos la bienvenida al curso de "+Curso+"</h1>" +
+                "<a href='" + LinkCurso + "'>Podrás ingresar al curso aquí</a>" +
+                "<p>Ágiles 2021</p>"};
 
             // send email
             using var smtp = new SmtpClient();
             smtp.Connect("smtp.office365.com", 587, SecureSocketOptions.StartTls);
-            smtp.Authenticate("u201817688@upc.edu.pe", "Discovery21!");
+            smtp.Authenticate("u201817688@upc.edu.pe", "###");
             smtp.Send(email);
             smtp.Disconnect(true);
             mailSent = true;
