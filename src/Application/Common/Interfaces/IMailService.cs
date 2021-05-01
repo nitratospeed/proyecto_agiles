@@ -6,6 +6,6 @@ namespace Application.Common.Interfaces
 {
     public interface IMailService
     {
-        bool SendEmail(string Correo, string Curso, string Nombres, string LinkCurso);
+        bool SendEmail(string Correo, string Curso, string Nombres, string LinkCurso, string MailFrom, string PasswordFrom);
     }
 }

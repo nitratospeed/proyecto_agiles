@@ -12,6 +12,8 @@ namespace Application.Mail.Commands.SendEmail
     {
         public int UsuarioId { get; set; }
         public int CursoId { get; set; }
+        public string MailFrom { get; set; }
+        public string PasswordFrom { get; set; }
     }
 
     public class SendEmailQueryHandler : IRequestHandler<SendEmailCommand, bool>
@@ -30,7 +32,7 @@ namespace Application.Mail.Commands.SendEmail
             var usuario = await context.Usuarios.FindAsync(request.UsuarioId);
             var curso = await context.Cursos.FindAsync(request.CursoId);
 
-            return mailService.SendEmail(usuario.Correo, curso.Nombre, usuario.Nombres + " " + usuario.Apellidos, curso.UrlVideo);
+            return mailService.SendEmail(usuario.Correo, curso.Nombre, usuario.Nombres + " " + usuario.Apellidos, curso.UrlVideo, request.MailFrom, request.PasswordFrom);
         }
     }
 }
