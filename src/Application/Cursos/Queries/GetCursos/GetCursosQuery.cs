@@ -38,6 +38,7 @@ namespace Application.Cursos.Queries.GetCursos
                 .Where(x=>x.Nombre.ToLower().Contains(request.Nombre.ToLower()) || request.Nombre == "")
                 .Where(x => x.CategoriaId == request.CategoriaId || request.CategoriaId == 0)
                 .ProjectTo<CursoDto>(_mapper.ConfigurationProvider)
+                .OrderBy(x=>x.Id)
                 .PaginatedListAsync(request.PageNumber, request.PageSize);
 
             return result;
