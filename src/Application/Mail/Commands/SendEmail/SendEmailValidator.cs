@@ -14,6 +14,12 @@ namespace Application.Mail.Commands.SendEmail
 
             RuleFor(x => x.CursoId)
                 .NotEmpty();
+
+            RuleFor(x => x.MailFrom)
+                .NotEmpty();
+
+            RuleFor(x => x.PasswordFrom)
+                .NotEmpty();
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using Application.Common.Interfaces;
+using Domain.Entities;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 using MimeKit.Text;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Infrastructure.Services.Mail
@@ -12,18 +14,31 @@ namespace Infrastructure.Services.Mail
     public class MailService : IMailService
     {
         static bool mailSent = false;
-        public bool SendEmail(string Correo, string Curso, string Nombres, string LinkCurso, string MailFrom, string PasswordFrom)
+        public bool SendEmail(Curso curso, Usuario usuario, string MailFrom, string PasswordFrom)
         {
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(MailFrom));
-            email.To.Add(MailboxAddress.Parse(Correo));
-            email.Subject = "Bienvenido al curso de " + Curso;
-            email.Body = new TextPart(TextFormat.Html) { Text = 
-                "<h1>Te damos la bienvenida al curso de "+Curso+"</h1>" +
-                "<a href='" + LinkCurso + "'>Podrás ingresar al curso aquí</a>" +
-                "<p>Ágiles 2021</p>"};
+            email.To.Add(MailboxAddress.Parse(usuario.Correo));
+            email.Subject = "Bienvenido al curso de " + curso.Nombre;
 
-            // send email
+            var bodyBuilder = new BodyBuilder();
+
+            using (StreamReader SourceReader = File.OpenText("../Infrastructure/Services/Mail/correo.html"))
+            {
+                var bodytemp = SourceReader.ReadToEnd();
+                
+                bodytemp = bodytemp.Replace("{usuario_nombre}", usuario.Nombres + " " + usuario.Apellidos);
+                bodytemp = bodytemp.Replace("$curso_nombre", curso.Nombre);
+                bodytemp = bodytemp.Replace("$curso_imagen", curso.UrlImagen);
+                bodytemp = bodytemp.Replace("$curso_descripcion", curso.Descripcion);
+                bodytemp = bodytemp.Replace("$curso_docente", curso.Docente.Nombre);
+                bodytemp = bodytemp.Replace("$curso_link", curso.UrlVideo);
+
+                bodyBuilder.HtmlBody = bodytemp;
+            }
+
+            email.Body = bodyBuilder.ToMessageBody();
+
             using var smtp = new SmtpClient();
             smtp.Connect("smtp.office365.com", 587, SecureSocketOptions.StartTls);
             smtp.Authenticate(MailFrom, PasswordFrom);

@@ -1,7 +1,9 @@
 ﻿using Application.Common.Interfaces;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,9 +32,9 @@ namespace Application.Mail.Commands.SendEmail
         public async Task<bool> Handle(SendEmailCommand request, CancellationToken cancellationToken)
         {
             var usuario = await context.Usuarios.FindAsync(request.UsuarioId);
-            var curso = await context.Cursos.FindAsync(request.CursoId);
+            var curso = await context.Cursos.Where(x=>x.Id == request.CursoId).Include(x=>x.Docente).FirstOrDefaultAsync();
 
-            return mailService.SendEmail(usuario.Correo, curso.Nombre, usuario.Nombres + " " + usuario.Apellidos, curso.UrlVideo, request.MailFrom, request.PasswordFrom);
+            return mailService.SendEmail(curso, usuario, request.MailFrom, request.PasswordFrom);
         }
     }
 }
