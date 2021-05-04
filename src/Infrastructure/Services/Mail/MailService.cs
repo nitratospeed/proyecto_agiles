@@ -30,7 +30,7 @@ namespace Infrastructure.Services.Mail
 
             var bodyBuilder = new BodyBuilder();
 
-            var pathh = Path.Combine(Environment.CurrentDirectory, "correo.html");
+            var pathh = Path.Combine(Directory.GetCurrentDirectory(), "correo.html");
 
             using (StreamReader SourceReader = File.OpenText(pathh))
             {
