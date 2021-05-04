@@ -23,7 +23,7 @@ namespace Infrastructure.Services.Mail
 
             var bodyBuilder = new BodyBuilder();
 
-            using (StreamReader SourceReader = File.OpenText("../Infrastructure/Services/Mail/correo.html"))
+            using (StreamReader SourceReader = File.OpenText(Path.Combine(Directory.GetCurrentDirectory(), "../Infrastructure/Services/Mail/correo.html")))
             {
                 var bodytemp = SourceReader.ReadToEnd();
                 
