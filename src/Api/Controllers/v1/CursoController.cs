@@ -29,9 +29,9 @@ namespace Api.Controllers.v1
         }
 
         [HttpGet("usuario")]
-        public async Task<ActionResult<BaseApiResponse<List<CursoDto>>>> GetByUsuarioId(int usuarioId)
+        public async Task<ActionResult<BaseApiResponse<List<CursoDto>>>> GetByUsuarioId(int usuarioId, bool recomendado)
         {
-            return Ok(await Mediator.Send(new GetCursosByUsuarioIdQuery { UsuarioId = usuarioId }));
+            return Ok(await Mediator.Send(new GetCursosByUsuarioIdQuery { UsuarioId = usuarioId, Recomendado = recomendado }));
         }
 
         [HttpPost]

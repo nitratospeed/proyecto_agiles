@@ -16,6 +16,7 @@ namespace Application.Cursos.Queries.GetCursos
     public class GetCursosByUsuarioIdQuery : IRequest<List<CursoDto>>
     {
         public int UsuarioId { get; set; } = 0;
+        public bool Recomendado { get; set; } = false;
     }
 
     public class GetCursosByUsuarioIdQueryHandler : IRequestHandler<GetCursosByUsuarioIdQuery, List<CursoDto>>
@@ -31,12 +32,33 @@ namespace Application.Cursos.Queries.GetCursos
 
         public async Task<List<CursoDto>> Handle(GetCursosByUsuarioIdQuery request, CancellationToken cancellationToken)
         {
-            var result = await _context.CursoUsuarios
-                .Include(x=>x.Curso)
-                .Where(x=>x.UsuarioId==request.UsuarioId)
-                .Select(x=>x.Curso)
-                .ProjectTo<CursoDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+            var result = new List<CursoDto>();
+
+            if (request.Recomendado)
+            {
+                var sd = await _context.UsuarioTemas.Include(x => x.Tema).Where(x => x.UsuarioId == request.UsuarioId)
+                    .Select(x => x.Tema).ToListAsync();
+
+                foreach (var item in sd)
+                {
+                    var cursotema = await _context.Cursos
+                    .Where(x=>x.TemaId == item.Id)
+                    .ProjectTo<CursoDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync();
+
+                    result.AddRange(cursotema);
+                }
+            }
+            else
+            {
+                result = await _context.CursoUsuarios
+                    .Include(x => x.Curso)
+                    .Where(x => x.UsuarioId == request.UsuarioId)
+                    .Select(x => x.Curso)
+                    .ProjectTo<CursoDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync();
+            }
+
 
             return result;
         }
