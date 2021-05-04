@@ -2,6 +2,7 @@
 using Domain.Entities;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.AspNetCore.Hosting;
 using MimeKit;
 using MimeKit.Text;
 using System;
@@ -14,6 +15,12 @@ namespace Infrastructure.Services.Mail
     public class MailService : IMailService
     {
         static bool mailSent = false;
+        //private readonly IHostingEnvironment _hostingEnvironment;
+        //public MailService(IHostingEnvironment hostingEnvironment)
+        //{
+        //    _hostingEnvironment = hostingEnvironment;
+        //}
+
         public bool SendEmail(Curso curso, Usuario usuario, string MailFrom, string PasswordFrom)
         {
             var email = new MimeMessage();
@@ -23,10 +30,12 @@ namespace Infrastructure.Services.Mail
 
             var bodyBuilder = new BodyBuilder();
 
-            using (StreamReader SourceReader = File.OpenText(Path.Combine(Environment.CurrentDirectory, @"../Infrastructure/Services/Mail/correo.html")))
+            var pathh = Path.Combine(Environment.CurrentDirectory, "correo.html");
+
+            using (StreamReader SourceReader = File.OpenText(pathh))
             {
                 var bodytemp = SourceReader.ReadToEnd();
-                
+
                 bodytemp = bodytemp.Replace("{usuario_nombre}", usuario.Nombres + " " + usuario.Apellidos);
                 bodytemp = bodytemp.Replace("$curso_nombre", curso.Nombre);
                 bodytemp = bodytemp.Replace("$curso_imagen", curso.UrlImagen);
