@@ -28,25 +28,37 @@ namespace Infrastructure.Services.Mail
             email.To.Add(MailboxAddress.Parse(usuario.Correo));
             email.Subject = "Bienvenido al curso de " + curso.Nombre;
 
-            var bodyBuilder = new BodyBuilder();
+            //var bodyBuilder = new BodyBuilder();
 
-            var pathh = Path.Combine(Directory.GetCurrentDirectory(), "correo.html");
+            //var pathh = Path.Combine(Directory.GetCurrentDirectory(), "correo.html");
 
-            using (StreamReader SourceReader = File.OpenText(pathh))
+            //using (StreamReader SourceReader = File.OpenText(pathh))
+            //{
+            //    var bodytemp = SourceReader.ReadToEnd();
+
+            //    bodytemp = bodytemp.Replace("{usuario_nombre}", usuario.Nombres + " " + usuario.Apellidos);
+            //    bodytemp = bodytemp.Replace("$curso_nombre", curso.Nombre);
+            //    bodytemp = bodytemp.Replace("$curso_imagen", curso.UrlImagen);
+            //    bodytemp = bodytemp.Replace("$curso_descripcion", curso.Descripcion);
+            //    bodytemp = bodytemp.Replace("$curso_docente", curso.Docente.Nombre);
+            //    bodytemp = bodytemp.Replace("$curso_link", curso.UrlVideo);
+
+            //    bodyBuilder.HtmlBody = bodytemp;
+            //}
+
+            //email.Body = bodyBuilder.ToMessageBody();
+
+            email.Body = new TextPart(TextFormat.Html)
             {
-                var bodytemp = SourceReader.ReadToEnd();
-
-                bodytemp = bodytemp.Replace("{usuario_nombre}", usuario.Nombres + " " + usuario.Apellidos);
-                bodytemp = bodytemp.Replace("$curso_nombre", curso.Nombre);
-                bodytemp = bodytemp.Replace("$curso_imagen", curso.UrlImagen);
-                bodytemp = bodytemp.Replace("$curso_descripcion", curso.Descripcion);
-                bodytemp = bodytemp.Replace("$curso_docente", curso.Docente.Nombre);
-                bodytemp = bodytemp.Replace("$curso_link", curso.UrlVideo);
-
-                bodyBuilder.HtmlBody = bodytemp;
-            }
-
-            email.Body = bodyBuilder.ToMessageBody();
+                Text =
+                "<h1>Hola " + usuario.Nombres +" "+usuario.Apellidos + "</h1>" +
+                "<img src='" + curso.UrlImagen + "' width='224' height='240'>" +
+                "<h1>Bienvenido al curso de " + curso.Nombre + "</h1>" +
+                "<p> " + curso.Descripcion + "</p> " +
+                "<p> Docente: " + curso.Docente.Nombre + "</p> " +
+                "<a href='" + curso.UrlVideo + "'>Podrás ingresar al curso aquí</a>" +
+                "<p>Grupo 5 - Ágiles 2021</p>"
+            };
 
             using var smtp = new SmtpClient();
             smtp.Connect("smtp.office365.com", 587, SecureSocketOptions.StartTls);
